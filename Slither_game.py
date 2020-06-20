@@ -23,7 +23,7 @@ pygame.mixer.music.play(-1)
 
 clock = pygame.time.Clock()
 FPS = 7.5
-blockSize = 25
+blockSize = 20
 noPixel = 0
 
 def myquit():
@@ -129,7 +129,7 @@ def gameLoop():
             if eachSegment == allspriteslist:
                 gameOver = True
 
-        snake(blockSize+2, snakelist)
+        snake(blockSize, snakelist)
         pygame.display.update()
         if lead_x >= randomAppleX and lead_x <= randomAppleX + AppleThickness:
             if lead_y >= randomAppleY and lead_y <= randomAppleY + AppleThickness:
