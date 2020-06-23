@@ -2,6 +2,7 @@ import pygame,sys
 import time
 import random
 
+#live update of score & speed increases with increase in snake length
 pygame.init()
 custom_red = (255,18,44)
 desert_sand = (237,201,175)
@@ -22,7 +23,7 @@ bg = pygame.image.load("slither_bg.jpg")
 pygame.mixer.music.play(-1)
 
 clock = pygame.time.Clock()
-FPS = 7.5
+FPS = 5
 blockSize = 20
 noPixel = 0
 
@@ -31,6 +32,7 @@ def myquit():
     sys.exit(0)
 
 font = pygame.font.SysFont(None, 25, bold=True)
+font1 = pygame.font.SysFont(None, 30, bold=True, italic = True)
 
 def drawGrid():
 	sizeGrd = window_width // blockSize
@@ -42,6 +44,10 @@ def snake(blockSize, snakelist):
 def message_to_screen(msg, color):
     screen_text = font.render(msg, True, color)
     gameDisplay.blit(screen_text, [window_width/6, window_height/2])
+
+def message(msg, color):
+    screen_text = font1.render(msg, True, color)
+    gameDisplay.blit(screen_text, [window_width/24, window_height/21])
 
 def gameLoop():
     
@@ -136,10 +142,11 @@ def gameLoop():
                 randomAppleX = round(random.randrange(0, window_width-blockSize)/10.0)*10.0
                 randomAppleY = round(random.randrange(0, window_height-blockSize)/10.0)*10.0
                 snakeLength += 1
-
-        clock.tick(FPS)
-        Length = snakeLength
-        score="Score: " + str((Length-1)*10)+ "  "
+        speed = FPS + snakeLength/5
+        score="Score: " + str((snakeLength-1)*10)+ "  "
+        message(score,red)
+        pygame.display.update()
+        clock.tick(speed)
         
     pygame.quit()
     quit()
