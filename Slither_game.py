@@ -2,7 +2,7 @@ import pygame,sys
 import time
 import random
 
-#live update of score & speed increases with increase in snake length
+#live update of score & speed also speed increases with increase in snake length
 pygame.init()
 custom_red = (255,18,44)
 desert_sand = (237,201,175)
@@ -31,7 +31,7 @@ def myquit():
     pygame.quit()
     sys.exit(0)
 
-font = pygame.font.SysFont(None, 25, bold=True)
+font = pygame.font.SysFont(None, 50, bold=True, italic = True)
 font1 = pygame.font.SysFont(None, 30, bold=True, italic = True)
 
 def drawGrid():
@@ -67,7 +67,7 @@ def gameLoop():
     while not gameExit:
         while gameOver == True:
             gameDisplay.blit(bg, (0, 0))
-            message_to_screen(score + "Game over, press p to play again or Q to quit", red)
+            message_to_screen("Game over, press p to play again or Q to quit", white)
             pygame.display.update()
 
             for event in pygame.event.get():
@@ -142,9 +142,9 @@ def gameLoop():
                 randomAppleX = round(random.randrange(0, window_width-blockSize)/10.0)*10.0
                 randomAppleY = round(random.randrange(0, window_height-blockSize)/10.0)*10.0
                 snakeLength += 1
-        speed = FPS + snakeLength/5
+        speed = FPS + (snakeLength-1)/5
         score="Score: " + str((snakeLength-1)*10)+ "  "
-        message(score,red)
+        message(score + "   Speed: " + str(round(speed/5,2))+"X",white)
         pygame.display.update()
         clock.tick(speed)
         
