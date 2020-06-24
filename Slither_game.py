@@ -16,11 +16,11 @@ black = (0,0,0)
 window_width = 1200
 window_height = 700
 
-gameDisplay = pygame.display.set_mode((window_width,window_height))
-pygame.display.set_caption('Slither 2D')
-bg_music = pygame.mixer.music.load("slither_song.mp3")
-bg = pygame.image.load("slither_bg.jpg")
-pygame.mixer.music.play(-1)
+gameDisplay = pygame.display.set_mode((window_width,window_height))#screen display
+pygame.display.set_caption('Slither 2D')#the title
+bg_music = pygame.mixer.music.load("slither_song.mp3")#plays the bg music
+bg = pygame.image.load("slither_bg.jpg")#shows the bg image
+pygame.mixer.music.play(-1)#bg music gets looped
 
 clock = pygame.time.Clock()
 FPS = 5
@@ -39,7 +39,7 @@ def drawGrid():
 
 def snake(blockSize, snakelist):
     for size in snakelist:
-        pygame.draw.ellipse(gameDisplay, green,[size[0],size[1],blockSize,blockSize],10)
+        pygame.draw.ellipse(gameDisplay, green,[size[0],size[1],blockSize,blockSize],10)#snake blocks in shape of ellipse
 
 def message_to_screen(msg, color):
     screen_text = font.render(msg, True, color)
@@ -61,8 +61,8 @@ def gameLoop():
     change_pixels_of_y = 0
     snakelist = []
     snakeLength = 1
-    randomAppleX = round(random.randrange(0, window_width-blockSize)/10.0)*10.0
-    randomAppleY = round(random.randrange(0, window_height-blockSize)/10.0)*10.0
+    randomAppleX = round(random.randrange(0, window_width-blockSize)/10.0)*10.0#first apple generation
+    randomAppleY = round(random.randrange(0, window_height-blockSize-25)/10.0)*10.0#first apple generation
 
     while not gameExit:
         while gameOver == True:
@@ -121,7 +121,7 @@ def gameLoop():
         gameDisplay.blit(bg, (0,0))
         AppleThickness = 20
 
-        pygame.draw.ellipse(gameDisplay, custom_red,[randomAppleX,randomAppleY,AppleThickness,AppleThickness])
+        pygame.draw.ellipse(gameDisplay, custom_red,[randomAppleX,randomAppleY,AppleThickness,AppleThickness])#apple in shape of ellipse
 
         allspriteslist = []
         allspriteslist.append(lead_x)
@@ -139,8 +139,8 @@ def gameLoop():
         pygame.display.update()
         if lead_x >= randomAppleX and lead_x <= randomAppleX + AppleThickness:
             if lead_y >= randomAppleY and lead_y <= randomAppleY + AppleThickness:
-                randomAppleX = round(random.randrange(0, window_width-blockSize)/10.0)*10.0
-                randomAppleY = round(random.randrange(0, window_height-blockSize)/10.0)*10.0
+                randomAppleX = round(random.randrange(0, window_width-blockSize)/10.0)*10.0#second or more apple generation
+                randomAppleY = round(random.randrange(0, window_height-blockSize-25)/10.0)*10.0#second or more apple generation
                 snakeLength += 1
         speed = FPS + (snakeLength-1)/5
         score="Score: " + str((snakeLength-1)*10)+ "  "
